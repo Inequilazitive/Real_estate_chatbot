@@ -1,0 +1,8 @@
+streamlit
+torch
+transformers
+Pillow
+gradio
+ultralytics
+spacy
+geotext
