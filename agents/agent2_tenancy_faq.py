@@ -1,10 +1,18 @@
 from utils.llm_utils import LLaMAHelper 
 import spacy
 from geotext import GeoText
+import spacy
+import spacy.cli
 
 # Initialize LLaMA and spaCy
 llm = LLaMAHelper()
-nlp = spacy.load("en_core_web_sm")
+
+try:
+    nlp = spacy.load("en_core_web_sm")
+except OSError:
+    spacy.cli.download("en_core_web_sm")
+    nlp = spacy.load("en_core_web_sm")
+
 
 def extract_location(text, method="spacy"):
     if method == "spacy":

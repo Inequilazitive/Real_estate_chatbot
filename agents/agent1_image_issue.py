@@ -1,4 +1,4 @@
-from .agent2_tenancy_faq import handle_tenancy_query
+from agents.agent2_tenancy_faq import handle_tenancy_query
 # Image analysis + troubleshooting agent 
 CLARITY_THRESHOLD = 0.1 
 
