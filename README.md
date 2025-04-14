@@ -17,6 +17,55 @@ short_description: Smart chatbot for tenancy and property image issues.
 
 This project is a multi-agent chatbot designed for the real estate domain. It intelligently handles both text-based tenancy FAQs and image-based property issue troubleshooting. Users can interact with the chatbot by typing questions or uploading images, and the system will automatically determine the best agent to respond — whether it's a legal assistant for tenancy issues or an image-based troubleshooting expert.
 
+# 🏡 Real Estate Chatbot – How to Use
+
+This guide will walk you through the steps to launch and interact with the Real Estate Chatbot using Google Colab. The chatbot is hosted in the GitHub repository:  
+👉 **[https://github.com/Inequilazitive/Real_estate_chatbot](https://github.com/Inequilazitive/Real_estate_chatbot)**
+
+---
+
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1TRLb8VpUZeBlFoCk9HwXn4gt3jY5TIAn?usp=sharing)
+
+## 🚀 Step-by-Step Instructions
+
+### 1. **Open the Notebook in Google Colab**
+- Open the Jupyter notebook file attached with this guide named `Use-real-estate-chatbot.ipynb` or available in the GitHub repository.
+- Use **Google Colab** to run the notebook.
+
+### 2. **Connect to a T4 GPU**
+- In Colab, go to **Runtime > Change runtime type**.
+- Select **GPU** as the hardware accelerator and ensure it's a **T4 GPU** for optimal performance.
+
+### 3. **Run Notebook Cells One by One**
+
+#### ✅ **Step 1: Clone the GitHub Repository**
+```python
+!git clone "https://github.com/Inequilazitive/Real_estate_chatbot"
+```
+
+#### ✅ **Step 2: Change Directory**
+```python
+%cd '/content/Real_estate_chatbot'
+```
+
+#### ✅ **Step 3: Set Hugging Face Access Token**
+```python
+import os
+os.environ["HF_TOKEN"] = "<Your HF access token with access to llama 3.2-3B-Instruct model>"
+
+```
+#### ✅ **Step 4: Run the App**
+```python
+!python3 app.py
+```
+
+## 💬 Access the Chatbot
+
+After the app launches, look for the output that includes two URLs:
+- A **local URL** (usually starting with `http://127.0.0.1`)
+- A **public URL** (starting with something like `https://xxxx.gradio.live`)
+
+👉 Click on the **public URL** to open and interact with the chatbot.
 
 ## Tools & Technologies Used
 
@@ -31,7 +80,7 @@ This project is a multi-agent chatbot designed for the real estate domain. It in
 ### 2. **Python**
    - **Purpose**: The core programming language for implementing the chatbot’s backend logic. Python’s flexibility and rich ecosystem of libraries make it suitable for integrating different models and tools into the chatbot system.
 
-### 3. **BLIP + GIT + CLIP Ensemble**
+### 3. **Hugging Face- BLIP + GIT + CLIP Ensemble**
    - **BLIP (Bootstrapping Language-Image Pre-training)**: 
      - **Purpose**: BLIP is used for generating captions from images. It combines vision and language models to interpret the content of the image and generate a descriptive caption.
      - **How It Works**: The BLIP model processes the image and outputs a textual description based on visual features. This serves as the first step in the image issue detection process.
@@ -55,7 +104,7 @@ This project is a multi-agent chatbot designed for the real estate domain. It in
      - If the user query contains specific tenancy-related keywords (e.g., “rent”, “contract”, “lease”), the system routes the query to **Agent 2**.
      - In the case where the system cannot determine the appropriate agent, a fallback is provided, and the system defaults to Agent 2.
 
-### 6. **LLaMA (Language Model for Multiple Agents)**
+### 6. **Hugging Face - LLaMA (Language Model for Multiple Agents)**
    - **Purpose**: LLaMA is a large-scale language model (specifically, LLaMA 3.2-3B-Instruct) used to generate responses for tenancy-related queries. It is capable of processing complex language inputs and delivering contextually appropriate responses.
    - **How It Works**: LLaMA is fine-tuned to understand tenancy law and property-related queries, allowing it to generate informative and accurate responses when the chatbot is in the tenancy FAQ mode.
 
