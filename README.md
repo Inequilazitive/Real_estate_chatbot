@@ -146,6 +146,47 @@ After the app launches, look for the output that includes two URLs:
    - If the system is unable to determine the appropriate agent (e.g., unclear input), it defaults to **Agent 2**, which handles tenancy-related queries. This ensures that the chatbot can always provide a helpful response, even in ambiguous situations.
 
 ---
+# How Image-Based Issue Detection Works
+
+1. **Image uploaded** → Checked with **MD5** to detect duplicates  
+2. **Captions generated** using **BLIP** and **GIT**  
+3. **CLIP ranks** the captions → Best one selected  
+4. If **confidence ≥ threshold** → Proceed; else → Ask **clarifying question**  
+5. **Caption + user query + chat history** sent to **LLaMA**  
+6. **LLaMA provides** suggestions or follow-ups  
+7. **Result is displayed**; caption is **cached** for efficiency  
+
+---
+
+## Use Case Examples Covered
+
+### 1. Image-Based Query Resolution  
+The following image-based issue detection scenarios were tested (images were uploaded and a conversation followed):
+
+- Mouldy walls  
+- Broken fixtures  
+- Termite infestation (required more details during conversation)  
+- Leaky roof  
+- Broken pipes  
+- Live wires  
+
+### 2. Tenancy-Based Questions  
+Tested for various locations including **London (UK), California (US), New York (US), Kerala (India), and Delhi (India)**:
+
+- How much notice do I need to give before vacating?  
+- Can my landlord increase rent midway through the contract?  
+- What to do if the landlord is not returning the deposit?  
+- In what cases can I be evicted without notice?  
+
+#### Follow-up Questions Asked:
+
+- What's the procedure to file an appeal in court?  
+- What legal remedies are available to me?  
+- What legal remedies are available to me? *(duplicate noted)*
+
+> Various other examples were used during testing.
+
+---
 
 ## Storage and GPU Limitations: Compromises and Future Work
 
@@ -180,3 +221,14 @@ To boost output quality, we planned to simultaneously generate responses using b
 
 
 This detailed overview describes the tools and logic behind the switching mechanism that allows the chatbot to provide contextual and multimodal support effectively.
+
+
+## Screenshots and examples for Image-Based Property Questions
+
+![Image Placeholder - Property Question 1](config/Image-question-1.png)  
+![Image Placeholder - Property Question 2](config/image-question-2.png)
+
+## Screenshots and examples for Tenancy-Based Questions
+
+![Image Placeholder - Tenancy Question 1](config/tenancy-question-1.png)  
+![Image Placeholder - Tenancy Question 2](config/tenancy-question-2.png)
