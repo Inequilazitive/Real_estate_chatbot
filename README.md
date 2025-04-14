@@ -13,6 +13,11 @@ short_description: Smart chatbot for tenancy and property image issues.
 
 # Multi-Agent Real Estate Chatbot – Detailed Explanation
 
+## Overview
+
+This project is a multi-agent chatbot designed for the real estate domain. It intelligently handles both text-based tenancy FAQs and image-based property issue troubleshooting. Users can interact with the chatbot by typing questions or uploading images, and the system will automatically determine the best agent to respond — whether it's a legal assistant for tenancy issues or an image-based troubleshooting expert.
+
+
 ## Tools & Technologies Used
 
 ### 1. **Gradio**
@@ -92,5 +97,37 @@ short_description: Smart chatbot for tenancy and property image issues.
    - If the system is unable to determine the appropriate agent (e.g., unclear input), it defaults to **Agent 2**, which handles tenancy-related queries. This ensures that the chatbot can always provide a helpful response, even in ambiguous situations.
 
 ---
+
+## Storage and GPU Limitations: Compromises and Future Work
+
+While designing and developing this system, we encountered several constraints due to limited computational resources—especially GPU memory, CPU power, and local/Colab-based VRAM and storage limits. These resource limitations impacted multiple aspects of the solution architecture, leading to compromises in model choice and design. Below are key instances where compromises were made and the proposed future work to address them:
+
+---
+
+### 1. Model Selection for Text Generation
+
+Initially, we aimed to use powerful large language models (LLMs) for text generation tasks. However, due to storage and compute limitations, we opted for a smaller variant of the LLaMA model. LLaMA models are generally known for their strong performance in text generation tasks and are open source—making them ideal for POC-level work.
+
+- **Compromise**: Used a lightweight LLaMA variant for local compatibility.
+- **Future Work**: Once resources are scaled, we intend to incorporate larger LLaMA models (e.g., `llama-3.1-8b-instruct`) or explore commercial models like GPT-4o or Claude (Anthropic) for enhanced performance and naturalness in generated outputs.
+
+---
+
+### 2. Zero-shot Text Classification for Agent Routing
+
+A critical planned feature was dynamic agent switching based on conversation context. For example, if a user, while discussing an image, begins asking tenancy-related questions, a classification pipeline would detect the intent and automatically switch to a relevant agent, passing along the full context. Initially, we used `facebook/bart-large-mnli` for this zero-shot classification task.
+
+- **Compromise**: Due to low GPU/CPU/VRAM availability on local setups and Google Colab, we had to remove this functionality.
+- **Future Work**: With access to more powerful hardware or inference APIs, we can reintegrate this feature, significantly improving conversation flow and user experience.
+
+---
+
+### 3. Multi-model Output Scoring Pipeline
+
+To boost output quality, we planned to simultaneously generate responses using both LLaMA and Mistral models, and then run a scoring mechanism to select the most relevant response.
+
+- **Compromise**: Resource constraints made it infeasible to load and run multiple LLMs in parallel.
+- **Future Work**: Revisit the multi-model setup once better hardware (or hosted services) are available. This will allow ensemble-style approaches for higher quality text generation and response reliability.
+
 
 This detailed overview describes the tools and logic behind the switching mechanism that allows the chatbot to provide contextual and multimodal support effectively.

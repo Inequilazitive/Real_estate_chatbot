@@ -1,13 +1,13 @@
 from transformers import AutoTokenizer, AutoModelForCausalLM, pipeline
 import torch
 import os
-
+from dotenv import load_dotenv
 class LLaMAHelper:
     def __init__(self, hf_token=None):
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         self.model_id = "meta-llama/Llama-3.2-3B-Instruct"
-
-        hf_token = hf_token or os.getenv("HUGGINGFACE_TOKEN")
+        load_dotenv()
+        hf_token = hf_token or os.getenv("HF_TOKEN")
 
         self.tokenizer = AutoTokenizer.from_pretrained(self.model_id, token=hf_token)
         self.model = AutoModelForCausalLM.from_pretrained(

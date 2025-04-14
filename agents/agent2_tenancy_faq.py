@@ -45,7 +45,12 @@ def handle_tenancy_query(user_query, user_context, history=[], location_method="
         if location:
             user_context["location"] = location 
 
-    system_prompt = "You are a legal assistant specializing in tenancy laws."
+    system_prompt = (
+    "You are a legal assistant specializing in tenancy laws. "
+    "Your primary objective is to provide prompt advice and answers to the user. "
+    "Only ask follow-up questions if absolutely necessary and only when you are unclear about the user's request."
+)
+
     prompt=""
     if location:
         prompt += f" The user is from {location}."
