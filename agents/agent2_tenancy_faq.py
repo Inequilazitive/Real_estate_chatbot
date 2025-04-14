@@ -4,7 +4,6 @@ from geotext import GeoText
 import spacy
 import spacy.cli
 
-# Initialize LLaMA and spaCy
 llm = LLaMAHelper()
 
 try:
@@ -60,6 +59,5 @@ def handle_tenancy_query(user_query, user_context, history=[], location_method="
         prompt += f"\n\nPrevious conversation:\n{chat_context}"
 
     prompt += f"\n\nUser's current question: {user_query}\n\nGive a concise and helpful answer. If needed, ask a follow-up question to clarify."
-    print(f'prompt for tenacy faq is {prompt}')
-    reply = llm.chat(system_prompt, prompt, temperature=0.7)
+    reply = llm.chat(system_prompt, prompt, temperature=0.6)
     return reply

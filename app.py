@@ -5,6 +5,13 @@ from agents.agent2_tenancy_faq import handle_tenancy_query
 from PIL import Image
 import torch
 import hashlib
+import subprocess
+import sys
+import os
+
+# Install requirements if needed
+requirements_file = os.path.join(os.path.dirname(__file__), "requirements.txt")
+subprocess.check_call([sys.executable, "-m", "pip", "install", "-r", requirements_file])
 
 # Helper to generate MD5 hash from image
 def get_image_hash(image):
